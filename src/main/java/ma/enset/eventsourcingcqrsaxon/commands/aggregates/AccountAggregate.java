@@ -1,45 +1,83 @@
 package ma.enset.eventsourcingcqrsaxon.commands.aggregates;
 
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import ma.enset.eventsourcingcqrsaxon.commands.commands.AddAccountCommand;
+import ma.enset.eventsourcingcqrsaxon.commands.commands.CreditAccountCommand;
+import ma.enset.eventsourcingcqrsaxon.commands.commands.DebitAccountCommand;
+import ma.enset.eventsourcingcqrsaxon.commands.enums.AccountStatus;
 import ma.enset.eventsourcingcqrsaxon.commands.events.AccountCreatedEvent;
+import ma.enset.eventsourcingcqrsaxon.commands.events.AccountCreditedEvent;
+import ma.enset.eventsourcingcqrsaxon.commands.events.AccountDebitedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
 
-@Aggregate
-@NoArgsConstructor
-public class AccountAggregate {
+import java.math.BigDecimal;
 
+@Aggregate
+@Slf4j
+public class AccountAggregate {
     @AggregateIdentifier
     private String accountId;
-    private double balance;
     private String currency;
-    private String status;
+    private double balance;
+    private AccountStatus status;
 
+    public AccountAggregate(){
+        // required by AXON
+    }
     @CommandHandler
-    public AccountAggregate(AddAccountCommand command) {
-        // Validation métier
-        if (command.getInitialBalance() < 0) {
-            throw new IllegalArgumentException("Initial balance cannot be negative");
-        }
-
-        // Publier l'événement
+    public AccountAggregate(CreateAccountCommand command){
+        log.info("CreateAccountCommand received");
+        if(command.getInitialBalance()<0) throw new NegativeInitialBalanceException("Negative balance");
         AggregateLifecycle.apply(new AccountCreatedEvent(
-                command.getAccountId(),
-                command.getInitialBalance(),
+                command.getId(),
                 command.getCurrency(),
-                "ACTIVATED"
+                command.getInitialBalance(),
+                AccountStatus.CREATED
         ));
     }
-
     @EventSourcingHandler
-    public void on(AccountCreatedEvent event) {
-        this.accountId = event.getAccountId();
-        this.balance = event.getInitialBalance();
-        this.currency = event.getCurrency();
-        this.status = event.getStatus();
+    public void on(AccountCreatedEvent event){
+        log.info("AccountCreatedEvent sourced");
+        this.accountId=event.getId();
+        this.balance=event.getBalance();
+        this.status=event.getStatus();
+        this.currency=event.getCurrency();
     }
+    @CommandHandler
+    public void handle(CreditAccountCommand command){
+        log.info("CreditAccountCommand received");
+        if(command.getAmount()<0) throw new NegativeInitialBalanceException("Negative Amount");
+        AggregateLifecycle.apply(new AccountCreditedEvent(
+                command.getId(),
+                command.getCurrency(),
+                command.getAmount()
+        ));
+    }
+    @EventSourcingHandler
+    public void on(AccountCreditedEvent event){
+        log.info("AccountCreditedEvent sourced");
+        this.balance+=event.getAmount();
+    }
+    @CommandHandler
+    public void handle(DebitAccountCommand command){
+        log.info("DebitAccountCommand received");
+        if(command.getAmount()<0) throw new NegativeInitialBalanceException("Negative Amount");
+        if(command.getAmount()>this.balance) throw new RuntimeException("Balance insufficient Exception");
+        AggregateLifecycle.apply(new AccountDebitedEvent(
+                command.getId(),
+                command.getCurrency(),
+                command.getAmount()
+        ));
+    }
+    @EventSourcingHandler
+    public void on(AccountDebitedEvent event){
+        log.info("AccountDebitedEvent sourced");
+        this.balance-=event.getAmount();
+    }
+
 }
