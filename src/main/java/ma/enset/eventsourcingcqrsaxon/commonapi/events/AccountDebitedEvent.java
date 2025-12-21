@@ -1,4 +1,4 @@
-package ma.enset.eventsourcingcqrsaxon.commands.events;
+package ma.enset.eventsourcingcqrsaxon.commonapi.events;
 import lombok.Getter;
 
 public class AccountDebitedEvent extends BaseEvent<String> {

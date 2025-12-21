@@ -1,4 +1,4 @@
-package ma.enset.eventsourcingcqrsaxon.commands.aggregates;
+package ma.enset.eventsourcingcqrsaxon.commonapi.commands;
 
 import lombok.Getter;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;

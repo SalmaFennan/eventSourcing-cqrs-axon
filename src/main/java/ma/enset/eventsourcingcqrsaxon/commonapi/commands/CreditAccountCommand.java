@@ -1,6 +1,5 @@
-package ma.enset.eventsourcingcqrsaxon.commands.commands;
+package ma.enset.eventsourcingcqrsaxon.commonapi.commands;
 import lombok.Getter;
-import ma.enset.eventsourcingcqrsaxon.commands.aggregates.BaseCommand;
 
 public class CreditAccountCommand extends BaseCommand<String> {
     @Getter

@@ -1,4 +1,4 @@
-package ma.enset.eventsourcingcqrsaxon.commands.dto;
+package ma.enset.eventsourcingcqrsaxon.commonapi.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CreateAccountRequestDTO {
+public class CreditAccountRequestDTO {
+    private String accountId;
     private String currency;
-    private double initialBalance;
+    private double amount;
 }

@@ -1,4 +1,4 @@
-package ma.enset.eventsourcingcqrsaxon.commands.dto;
+package ma.enset.eventsourcingcqrsaxon.commonapi.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

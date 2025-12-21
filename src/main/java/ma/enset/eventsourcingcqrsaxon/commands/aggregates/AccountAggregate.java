@@ -1,21 +1,19 @@
 package ma.enset.eventsourcingcqrsaxon.commands.aggregates;
 
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ma.enset.eventsourcingcqrsaxon.commands.commands.AddAccountCommand;
-import ma.enset.eventsourcingcqrsaxon.commands.commands.CreditAccountCommand;
-import ma.enset.eventsourcingcqrsaxon.commands.commands.DebitAccountCommand;
-import ma.enset.eventsourcingcqrsaxon.commands.enums.AccountStatus;
-import ma.enset.eventsourcingcqrsaxon.commands.events.AccountCreatedEvent;
-import ma.enset.eventsourcingcqrsaxon.commands.events.AccountCreditedEvent;
-import ma.enset.eventsourcingcqrsaxon.commands.events.AccountDebitedEvent;
+import ma.enset.eventsourcingcqrsaxon.commonapi.commands.CreateAccountCommand;
+import ma.enset.eventsourcingcqrsaxon.commonapi.commands.CreditAccountCommand;
+import ma.enset.eventsourcingcqrsaxon.commonapi.commands.DebitAccountCommand;
+import ma.enset.eventsourcingcqrsaxon.commonapi.enums.AccountStatus;
+import ma.enset.eventsourcingcqrsaxon.commonapi.events.AccountCreatedEvent;
+import ma.enset.eventsourcingcqrsaxon.commonapi.events.AccountCreditedEvent;
+import ma.enset.eventsourcingcqrsaxon.commonapi.events.AccountDebitedEvent;
+import ma.enset.eventsourcingcqrsaxon.commonapi.exceptions.NegativeInitialBalanceException;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
-
-import java.math.BigDecimal;
 
 @Aggregate
 @Slf4j
