@@ -2,6 +2,9 @@ package ma.enset.analyticsservice.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import ma.enset.analyticsservice.entities.AccountAnalytics;
+import ma.enset.analyticsservice.queries.GetAccountAnalyticsByAccountId;
+import ma.enset.analyticsservice.queries.GetAllAccountAnalytics;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
 import org.axonframework.queryhandling.SubscriptionQueryResult;
