@@ -1,5 +1,9 @@
 package ma.enset.eventsourcingcqrsaxon.query.controllers;
-
+import ma.enset.eventsourcingcqrsaxon.query.dto.AccountWatchEvent;
+import ma.enset.eventsourcingcqrsaxon.query.entities.Account;
+import ma.enset.eventsourcingcqrsaxon.query.queries.GetAccountBalanceStream;
+import ma.enset.eventsourcingcqrsaxon.query.queries.GetAccountById;
+import ma.enset.eventsourcingcqrsaxon.query.queries.GetAllAccounts;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
 import org.axonframework.queryhandling.SubscriptionQueryResult;
