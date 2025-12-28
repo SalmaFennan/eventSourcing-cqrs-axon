@@ -105,10 +105,10 @@ java -jar axonserver.jar
 ```
 
 Axon Server sera accessible sur: **http://localhost:8024**
-![img.png](images/axonServer.png)
+![axon Server](images/axonServer.png)
 
 ### Créer la base de données MySQL
-![img.png](images/sqldb.png)
+![sql database](images/sqldb.png)
 
 ### Lancer les applications
 
@@ -128,7 +128,7 @@ Les applications démarrent sur:
 - **Service Principal**: http://localhost:8081
 - **Service Analytics**: http://localhost:8082
 - **H2 Console** (Analytics): http://localhost:8082/h2-console
-  ![img.png](images/h2db.png)
+  ![H2 database](images/h2db.png)
 
 
 ##  API Documentation
@@ -213,11 +213,11 @@ GET http://localhost:8081/query/accounts/abc-123-def
   "currency": "MAD"
 }
 ```
-![img.png](images/SwaggerUi1.png)
-![img.png](images/SwaggerUI.png)
+![Swagger ui](images/SwaggerUI.png)
+![Swagger ui](images/SwaggerUi1.png)
 
 #### Visualiser les événements
-![img.png](images/VisualiserEvenements.png)
+![visualiser les evenements](images/VisualiserEvenements.png))
 
 
 #### 4. Consulter les analytics (Service Analytics)
@@ -283,7 +283,7 @@ Ouvrez http://localhost:8084/chart.html dans votre navigateur
 Entrez l'ID d'un compte dans le champ
 Cliquez sur "Watch"
 Les graphiques se mettent à jour automatiquement à chaque opération (crédit/débit)
-![img.png](images/InterfacedeVisualisation.png)
+![Interface de Visualisation](images/InterfacedeVisualisation.png)
 
 
 ## Structure du projet
